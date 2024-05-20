@@ -1,0 +1,9 @@
+@Fast_Laps_HostAddress = http://localhost:5159
+
+GET {{Fast_Laps_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{Fast_Laps_HostAddress}}/api/Drivers/
+Accept: application/json
