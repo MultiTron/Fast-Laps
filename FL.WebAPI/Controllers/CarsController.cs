@@ -1,6 +1,7 @@
 ﻿using FL.AppServices.Interfaces;
 using FL.AppServices.Messaging.Request;
 using FL.AppServices.Models.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FL.WebAPI.Controllers
@@ -8,6 +9,7 @@ namespace FL.WebAPI.Controllers
     /// <summary>
     /// Controller for managing Cars
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]

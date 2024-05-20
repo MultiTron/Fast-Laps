@@ -1,8 +1,12 @@
 using FL.AppServices.Implementations;
 using FL.AppServices.Interfaces;
 using FL.Data.Context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +14,29 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
 builder.Services.AddDbContext<FLDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("FL.WebAPI")));
 
+//Authentication
+var tokenKey = builder.Configuration["Authentication:TokenKey"] ?? "Not working token key";
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new()
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(tokenKey)),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+    };
+}
+);
+
+
 builder.Services.AddScoped<DbContext, FLDbContext>();
+builder.Services.AddScoped<IJWTManagementService, JWTManagementService>();
 builder.Services.AddScoped<ICarManagementService, CarManagementService>();
 builder.Services.AddScoped<ILapManagementService, LapManagementService>();
 builder.Services.AddScoped<IDriverManagementService, DriverManagementService>();
@@ -29,6 +55,30 @@ builder.Services.AddSwaggerGen(options =>
         Description = "RESTful API for project Fast Laps"
 
     });
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type=ReferenceType.SecurityScheme,
+                        Id="Bearer"
+                    }
+                },
+                new string[]{}
+            }
+        });
 });
 
 var app = builder.Build();
@@ -40,6 +90,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
