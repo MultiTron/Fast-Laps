@@ -30,7 +30,7 @@ namespace FL.WebAPI.Controllers
         [HttpGet]
         public IActionResult Get([FromQuery] int currentPage, int elementsPerPage)
         {
-            return Ok(_management.GetDrivers());
+            return Ok(_management.GetDrivers(new(currentPage, elementsPerPage)));
         }
         /// <summary>
         /// Create method for Drivers

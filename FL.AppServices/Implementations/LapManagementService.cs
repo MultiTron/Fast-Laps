@@ -1,4 +1,5 @@
-﻿using FL.AppServices.Messaging.Request.Lap;
+﻿using FL.AppServices.Messaging;
+using FL.AppServices.Messaging.Request.Lap;
 using FL.AppServices.Messaging.Response.Lap;
 using FL.Data.Context;
 using FL.Data.Entities;
@@ -52,6 +53,24 @@ namespace FL.AppServices.Implementations
             var response = new GetLapResponse() { Laps = new() };
             var laps = _context.Laps.Include("Driver").ToList();
             foreach (var lap in laps)
+            {
+                response.Laps.Add(new()
+                {
+                    Sector1 = lap.Sector1,
+                    Sector2 = lap.Sector2,
+                    Sector3 = lap.Sector3,
+                    LapTime = lap.LapTime,
+                    DriverName = $"{lap.Driver.FirstName} {lap.Driver.LastName}"
+                });
+            }
+            return response;
+        }
+
+        public GetLapResponse GetLaps(ServicePagingRequest request)
+        {
+            var response = new GetLapResponse() { Laps = new() };
+            var laps = _context.Laps.Include("Driver").ToList();
+            foreach (var lap in laps.Skip((request.CurrentPage - 1) * request.ElementsPerPage).Take(request.ElementsPerPage))
             {
                 response.Laps.Add(new()
                 {

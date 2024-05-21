@@ -31,7 +31,7 @@ namespace FL.WebAPI.Controllers
         [HttpGet]
         public IActionResult Get([FromQuery] int currentPage, int elementsPerPage)
         {
-            return Ok(_management.GetCars());
+            return Ok(_management.GetCars(new(currentPage, elementsPerPage)));
         }
         /// <summary>
         /// Create method for Cars
