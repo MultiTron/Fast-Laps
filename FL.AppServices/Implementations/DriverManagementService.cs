@@ -3,7 +3,6 @@ using FL.AppServices.Messaging.Request.Driver;
 using FL.AppServices.Messaging.Response.Driver;
 using FL.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace FL.AppServices.Implementations
 {
@@ -53,7 +52,7 @@ namespace FL.AppServices.Implementations
             foreach (var driver in drivers)
             {
                 var lapTimes = new List<TimeSpan>();
-                if (!driver.Laps.IsNullOrEmpty())
+                if (driver.Laps != null || driver.Laps.Count > 0)
                 {
                     foreach (var lap in driver.Laps)
                     {
