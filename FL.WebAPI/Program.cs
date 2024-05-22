@@ -1,5 +1,6 @@
 using FL.AppServices.Implementations;
 using FL.AppServices.Interfaces;
+using FL.AppServices.Messaging;
 using FL.Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -14,8 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
 builder.Services.AddDbContext<FLDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("FL.WebAPI")));
 
+builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection(nameof(AuthOptions)));
+
 //Authentication
-var tokenKey = builder.Configuration["Authentication:TokenKey"] ?? "Not working token key";
+var tokenKey = builder.Configuration["AuthOptions:TokenKey"] ?? "Not working token key";
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -48,7 +51,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
-    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
         Title = "Fast Laps",

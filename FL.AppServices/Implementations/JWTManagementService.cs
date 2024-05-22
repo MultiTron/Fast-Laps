@@ -1,5 +1,7 @@
 ﻿using FL.AppServices.Interfaces;
+using FL.AppServices.Messaging;
 using FL.Data.Context;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,10 +13,10 @@ namespace FL.AppServices.Implementations
     {
         private readonly FLDbContext _context;
         private readonly string _tokenKey;
-        public JWTManagementService(FLDbContext context, string tokenKey)
+        public JWTManagementService(IOptions<AuthOptions> options, FLDbContext context)
         {
             _context = context;
-            _tokenKey = tokenKey;
+            _tokenKey = options.Value.TokenKey;
         }
         public string? Authenticate(string clientId, string secret)
         {

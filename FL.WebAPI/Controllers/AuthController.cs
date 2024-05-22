@@ -1,4 +1,4 @@
-﻿using FL.AppServices.Implementations;
+﻿using FL.AppServices.Interfaces;
 using FL.AppServices.Messaging.Response.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +14,12 @@ namespace FL.WebAPI.Controllers
     [Produces("application/json")]
     public class AuthController : ControllerBase
     {
-        private readonly JWTManagementService _manager;
+        private readonly IJWTManagementService _manager;
         /// <summary>
         /// Authentication controller
         /// </summary>
         /// <param name="manager"></param>
-        public AuthController(JWTManagementService manager)
+        public AuthController(IJWTManagementService manager)
         {
             _manager = manager;
         }
