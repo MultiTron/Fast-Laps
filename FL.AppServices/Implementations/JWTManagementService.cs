@@ -1,6 +1,6 @@
 ﻿using FL.AppServices.Interfaces;
-using FL.AppServices.Messaging;
 using FL.Data.Context;
+using FL.Infrastructure.Messaging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

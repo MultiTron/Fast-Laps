@@ -1,5 +1,5 @@
 ﻿using FL.AppServices.Interfaces;
-using FL.AppServices.Models.Request;
+using FL.Infrastructure.Models.Request;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

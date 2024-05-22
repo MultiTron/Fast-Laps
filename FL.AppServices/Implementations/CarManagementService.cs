@@ -1,9 +1,9 @@
 ﻿using FL.AppServices.Interfaces;
-using FL.AppServices.Messaging;
-using FL.AppServices.Messaging.Request;
-using FL.AppServices.Messaging.Response;
-using FL.AppServices.Messaging.Response.Car;
 using FL.Data.Context;
+using FL.Infrastructure.Messaging;
+using FL.Infrastructure.Messaging.Request;
+using FL.Infrastructure.Messaging.Response;
+using FL.Infrastructure.Messaging.Response.Car;
 
 namespace FL.AppServices.Implementations
 {
@@ -90,6 +90,21 @@ namespace FL.AppServices.Implementations
                     Class = car.Class
                 });
             }
+            return response;
+        }
+
+        public GetCarResponse GetCar(int carId)
+        {
+            var response = new GetCarResponse() { Cars = new() };
+            var car = _context.Cars.Find(carId) ?? throw new ArgumentOutOfRangeException("Element not found");
+            response.Cars.Add(new()
+            {
+                Brand = car.Brand,
+                Model = car.Model,
+                Power = car.Power,
+                Weight = car.Weight,
+                Class = car.Class
+            });
             return response;
         }
     }

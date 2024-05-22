@@ -1,8 +1,8 @@
-﻿using FL.AppServices.Messaging;
-using FL.AppServices.Messaging.Request.Lap;
-using FL.AppServices.Messaging.Response.Lap;
-using FL.Data.Context;
+﻿using FL.Data.Context;
 using FL.Data.Entities;
+using FL.Infrastructure.Messaging;
+using FL.Infrastructure.Messaging.Request.Lap;
+using FL.Infrastructure.Messaging.Response.Lap;
 using Microsoft.EntityFrameworkCore;
 
 namespace FL.AppServices.Implementations

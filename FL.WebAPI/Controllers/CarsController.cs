@@ -1,6 +1,6 @@
 ﻿using FL.AppServices.Interfaces;
-using FL.AppServices.Messaging.Request;
-using FL.AppServices.Models.Request;
+using FL.Infrastructure.Messaging.Request;
+using FL.Infrastructure.Models.Request;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +23,16 @@ namespace FL.WebAPI.Controllers
         public CarsController(ICarManagementService management)
         {
             _management = management;
+        }
+        /// <summary>
+        /// Get method for Cars
+        /// </summary>
+        /// <param name="id">the identifier of the Car</param>
+        /// <returns>A Car object</returns>
+        [HttpGet("/find")]
+        public IActionResult Find([FromQuery] int id)
+        {
+            return Ok(_management.GetCar(id));
         }
         /// <summary>
         /// Get method for Cars

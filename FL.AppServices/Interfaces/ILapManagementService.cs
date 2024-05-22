@@ -1,6 +1,6 @@
-﻿using FL.AppServices.Messaging;
-using FL.AppServices.Messaging.Request.Lap;
-using FL.AppServices.Messaging.Response.Lap;
+﻿using FL.Infrastructure.Messaging;
+using FL.Infrastructure.Messaging.Request.Lap;
+using FL.Infrastructure.Messaging.Response.Lap;
 
 namespace FL.AppServices.Implementations
 {

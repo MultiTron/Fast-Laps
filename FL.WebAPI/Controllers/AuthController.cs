@@ -1,5 +1,5 @@
 ﻿using FL.AppServices.Interfaces;
-using FL.AppServices.Messaging.Response.Auth;
+using FL.Infrastructure.Messaging.Response.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

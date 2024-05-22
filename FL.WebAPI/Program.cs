@@ -1,7 +1,7 @@
 using FL.AppServices.Implementations;
 using FL.AppServices.Interfaces;
-using FL.AppServices.Messaging;
 using FL.Data.Context;
+using FL.Infrastructure.Messaging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

@@ -1,12 +1,13 @@
-﻿using FL.AppServices.Messaging;
-using FL.AppServices.Messaging.Request;
-using FL.AppServices.Messaging.Response;
-using FL.AppServices.Messaging.Response.Car;
+﻿using FL.Infrastructure.Messaging;
+using FL.Infrastructure.Messaging.Request;
+using FL.Infrastructure.Messaging.Response;
+using FL.Infrastructure.Messaging.Response.Car;
 
 namespace FL.AppServices.Interfaces
 {
     public interface ICarManagementService
     {
+        public GetCarResponse GetCar(int carId);
         public GetCarResponse GetCars();
         public GetCarResponse GetCars(ServicePagingRequest request);
         public CreateCarResponse CreateCar(CreateCarRequest request);
