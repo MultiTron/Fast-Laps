@@ -1,6 +1,6 @@
 ﻿namespace FL.AppServices.Messaging.Response.Driver
 {
-    public class DeleteDriverResponse
+    public class DeleteDriverResponse : ServiceResponseBase
     {
     }
 }

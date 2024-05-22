@@ -1,6 +1,6 @@
 ﻿namespace FL.AppServices.Messaging.Response.Lap
 {
-    public class UpdateLapResponse
+    public class UpdateLapResponse : ServiceResponseBase
     {
     }
 }

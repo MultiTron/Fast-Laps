@@ -1,4 +1,5 @@
 ﻿using FL.AppServices.Interfaces;
+using FL.AppServices.Messaging;
 using FL.AppServices.Messaging.Request;
 using FL.AppServices.Messaging.Response;
 using FL.AppServices.Messaging.Response.Car;
@@ -73,6 +74,23 @@ namespace FL.AppServices.Implementations
             _context.Cars.Remove(car);
             _context.SaveChanges();
             return new();
+        }
+
+        public GetCarResponse GetCars(ServicePagingRequest request)
+        {
+            var response = new GetCarResponse() { Cars = new() };
+            foreach (var car in _context.Cars.Skip((request.CurrentPage - 1) * request.ElementsPerPage).Take(request.ElementsPerPage))
+            {
+                response.Cars.Add(new()
+                {
+                    Brand = car.Brand,
+                    Model = car.Model,
+                    Power = car.Power,
+                    Weight = car.Weight,
+                    Class = car.Class
+                });
+            }
+            return response;
         }
     }
 }

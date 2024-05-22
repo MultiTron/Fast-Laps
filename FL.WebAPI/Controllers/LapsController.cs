@@ -35,7 +35,7 @@ namespace FL.WebAPI.Controllers
         [HttpGet]
         public IActionResult Get([FromQuery] int currentPage, int elementsPerPage)
         {
-            return Ok(_management.GetLaps());
+            return Ok(_management.GetLaps(new(currentPage, elementsPerPage)));
         }
         /// <summary>
         /// Create method for Laps

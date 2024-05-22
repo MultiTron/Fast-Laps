@@ -1,9 +1,9 @@
 ﻿using FL.AppServices.Interfaces;
+using FL.AppServices.Messaging;
 using FL.AppServices.Messaging.Request.Driver;
 using FL.AppServices.Messaging.Response.Driver;
 using FL.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace FL.AppServices.Implementations
 {
@@ -49,11 +49,36 @@ namespace FL.AppServices.Implementations
         public GetDriverResponse GetDrivers()
         {
             var response = new GetDriverResponse() { Drivers = new() };
-            var drivers = _context.Drivers.Include("Car").ToList();
+            var drivers = _context.Drivers.Include("Car").Include("Laps").ToList();
             foreach (var driver in drivers)
             {
                 var lapTimes = new List<TimeSpan>();
-                if (!driver.Laps.IsNullOrEmpty())
+                if (driver.Laps != null && driver.Laps.Count > 0)
+                {
+                    foreach (var lap in driver.Laps)
+                    {
+                        lapTimes.Add(lap.LapTime);
+                    }
+                }
+                response.Drivers.Add(new()
+                {
+                    FirstName = driver.FirstName,
+                    LastName = driver.LastName,
+                    CarBrand = $"{driver.Car.Brand} {driver.Car.Model}",
+                    LapTimes = lapTimes
+                });
+            }
+            return response;
+        }
+
+        public GetDriverResponse GetDrivers(ServicePagingRequest request)
+        {
+            var response = new GetDriverResponse() { Drivers = new() };
+            var drivers = _context.Drivers.Include("Car").Include("Laps").ToList();
+            foreach (var driver in drivers.Skip((request.CurrentPage - 1) * request.ElementsPerPage).Take(request.ElementsPerPage))
+            {
+                var lapTimes = new List<TimeSpan>();
+                if (driver.Laps != null && driver.Laps.Count > 0)
                 {
                     foreach (var lap in driver.Laps)
                     {
