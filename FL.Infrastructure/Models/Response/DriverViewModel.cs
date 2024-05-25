@@ -2,6 +2,7 @@
 {
     public class DriverViewModel
     {
+        required public int Id { get; set; }
         required public string FirstName { get; set; }
         required public string LastName { get; set; }
         required public string CarBrand { get; set; }

@@ -62,6 +62,7 @@ namespace FL.AppServices.Implementations
                 }
                 response.Drivers.Add(new()
                 {
+                    Id = driver.Id,
                     FirstName = driver.FirstName,
                     LastName = driver.LastName,
                     CarBrand = $"{driver.Car.Brand} {driver.Car.Model}",
@@ -87,6 +88,7 @@ namespace FL.AppServices.Implementations
                 }
                 response.Drivers.Add(new()
                 {
+                    Id = driver.Id,
                     FirstName = driver.FirstName,
                     LastName = driver.LastName,
                     CarBrand = $"{driver.Car.Brand} {driver.Car.Model}",

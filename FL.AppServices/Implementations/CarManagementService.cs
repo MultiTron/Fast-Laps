@@ -22,6 +22,7 @@ namespace FL.AppServices.Implementations
             {
                 response.Cars.Add(new()
                 {
+                    Id = car.Id,
                     Brand = car.Brand,
                     Model = car.Model,
                     Power = car.Power,
@@ -83,6 +84,7 @@ namespace FL.AppServices.Implementations
             {
                 response.Cars.Add(new()
                 {
+                    Id = car.Id,
                     Brand = car.Brand,
                     Model = car.Model,
                     Power = car.Power,
@@ -99,6 +101,7 @@ namespace FL.AppServices.Implementations
             var car = _context.Cars.Find(carId) ?? throw new ArgumentOutOfRangeException("Element not found");
             response.Cars.Add(new()
             {
+                Id = car.Id,
                 Brand = car.Brand,
                 Model = car.Model,
                 Power = car.Power,

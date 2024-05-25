@@ -56,6 +56,7 @@ namespace FL.AppServices.Implementations
             {
                 response.Laps.Add(new()
                 {
+                    Id = lap.Id,
                     Sector1 = lap.Sector1,
                     Sector2 = lap.Sector2,
                     Sector3 = lap.Sector3,
@@ -74,6 +75,7 @@ namespace FL.AppServices.Implementations
             {
                 response.Laps.Add(new()
                 {
+                    Id = lap.Id,
                     Sector1 = lap.Sector1,
                     Sector2 = lap.Sector2,
                     Sector3 = lap.Sector3,
