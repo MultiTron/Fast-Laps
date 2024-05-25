@@ -1,5 +1,6 @@
 ﻿using FL.Infrastructure.Messaging.Response;
 using FL.Infrastructure.Models.Request;
+using FL.Infrastructure.Models.Response;
 using FL.Website.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -105,7 +106,7 @@ namespace FL.Website.Controllers
             var token = await GetToken();
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token.Token);
 
-            var response = await _client.GetAsync(_client.BaseAddress + $"/cars?id={id}");
+            var response = await _client.GetAsync(_client.BaseAddress + $"/cars/find?id={id}");
             if (!response.IsSuccessStatusCode)
             {
                 return View();
@@ -121,13 +122,13 @@ namespace FL.Website.Controllers
         // POST: CarsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, CarModel car)
+        public async Task<ActionResult> Delete(CarViewModel car)
         {
             try
             {
                 var token = await GetToken();
                 _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token.Token);
-                var response = await _client.DeleteAsync(_client.BaseAddress + $"/cars?id={id}");
+                var response = await _client.DeleteAsync(_client.BaseAddress + $"/cars/{car.Id}");
                 if (!response.IsSuccessStatusCode)
                 {
                     return View();
