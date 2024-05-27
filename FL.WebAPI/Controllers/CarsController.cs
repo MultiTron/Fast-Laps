@@ -29,8 +29,8 @@ namespace FL.WebAPI.Controllers
         /// </summary>
         /// <param name="id">the identifier of the Car</param>
         /// <returns>A Car object</returns>
-        [HttpGet("Find")]
-        public IActionResult Find([FromQuery] int id)
+        [HttpGet("Find/{id}")]
+        public IActionResult Find([FromRoute] int id)
         {
             return Ok(_management.GetCar(id));
         }

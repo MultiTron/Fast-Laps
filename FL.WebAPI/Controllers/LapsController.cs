@@ -29,6 +29,16 @@ namespace FL.WebAPI.Controllers
         /// <summary>
         /// Get method for Laps
         /// </summary>
+        /// <param name="id">the identifier of the Lap</param>
+        /// <returns>A Lap object</returns>
+        [HttpGet("Find/{id}")]
+        public IActionResult Find([FromRoute] int id)
+        {
+            return Ok(_management.GetLap(id));
+        }
+        /// <summary>
+        /// Get method for Laps
+        /// </summary>
         /// <param name="currentPage">The current page</param>
         /// <param name="elementsPerPage">The nummber of Laps per page</param>
         /// <returns>List of all Lapps with paging</returns>

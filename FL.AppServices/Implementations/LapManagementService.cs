@@ -48,6 +48,23 @@ namespace FL.AppServices.Implementations
             return new();
         }
 
+        public GetLapResponse GetLap(int lapId)
+        {
+            var response = new GetLapResponse() { Laps = new() };
+            var lap = _context.Laps.Include("Driver").ToList().Find(x => x.Id == lapId) ?? throw new ArgumentNullException("Lap not found...");
+            response.Laps.Add(new()
+            {
+                Id = lap.Id,
+                Sector1 = lap.Sector1,
+                Sector2 = lap.Sector2,
+                Sector3 = lap.Sector3,
+                LapTime = lap.LapTime,
+                DriverId = lap.DriverId,
+                DriverName = $"{lap.Driver.FirstName} {lap.Driver.LastName}"
+            });
+            return response;
+        }
+
         public GetLapResponse GetLaps()
         {
             var response = new GetLapResponse() { Laps = new() };
@@ -61,6 +78,7 @@ namespace FL.AppServices.Implementations
                     Sector2 = lap.Sector2,
                     Sector3 = lap.Sector3,
                     LapTime = lap.LapTime,
+                    DriverId = lap.DriverId,
                     DriverName = $"{lap.Driver.FirstName} {lap.Driver.LastName}"
                 });
             }
@@ -80,6 +98,7 @@ namespace FL.AppServices.Implementations
                     Sector2 = lap.Sector2,
                     Sector3 = lap.Sector3,
                     LapTime = lap.LapTime,
+                    DriverId = lap.DriverId,
                     DriverName = $"{lap.Driver.FirstName} {lap.Driver.LastName}"
                 });
             }

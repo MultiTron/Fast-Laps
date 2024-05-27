@@ -26,6 +26,15 @@ namespace FL.WebAPI.Controllers
         /// <summary>
         /// Get method for Drivers
         /// </summary>
+        /// <returns>List of all Drivers</returns>
+        [HttpGet("All")]
+        public IActionResult Get()
+        {
+            return Ok(_management.GetDrivers());
+        }
+        /// <summary>
+        /// Get method for Drivers
+        /// </summary>
         /// <param name="currentPage">Current page</param>
         /// <param name="elementsPerPage">Number of elements per page</param>
         /// <returns>List of all Drivers with paging</returns>
@@ -61,7 +70,7 @@ namespace FL.WebAPI.Controllers
         /// <param name="driver">The update values</param>
         /// <returns>Http status code</returns>
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] DriverModel driver)
+        public IActionResult Update([FromRoute] int id, [FromBody] DriverModel driver)
         {
             return Ok(_management.UpdateDriver(new(id, driver)));
         }
