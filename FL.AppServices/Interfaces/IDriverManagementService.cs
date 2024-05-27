@@ -7,6 +7,7 @@ namespace FL.AppServices.Interfaces
     public interface IDriverManagementService
     {
         public GetDriverResponse GetDrivers();
+        public GetDriverResponse GetDriver(int driverId);
         public GetDriverResponse GetDrivers(ServicePagingRequest request);
         public CreateDriverResponse CreateDriver(CreateDriverRequest request);
         public UpdateDriverResponse UpdateDriver(UpdateDriverRequest request);

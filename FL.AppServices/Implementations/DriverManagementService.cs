@@ -46,6 +46,30 @@ namespace FL.AppServices.Implementations
             return new();
         }
 
+        public GetDriverResponse GetDriver(int driverId)
+        {
+            var response = new GetDriverResponse() { Drivers = new() };
+            var driver = _context.Drivers.Include("Car").Include("Laps").ToList().Find(x => x.Id == driverId) ?? throw new ArgumentNullException("Lap not found...");
+            var lapTimes = new List<TimeSpan>();
+            if (driver.Laps != null && driver.Laps.Count > 0)
+            {
+                foreach (var lap in driver.Laps)
+                {
+                    lapTimes.Add(lap.LapTime);
+                }
+            }
+            response.Drivers.Add(new()
+            {
+                Id = driver.Id,
+                FirstName = driver.FirstName,
+                LastName = driver.LastName,
+                CarId = driver.CarId,
+                CarBrand = $"{driver.Car.Brand} {driver.Car.Model}",
+                LapTimes = lapTimes
+            });
+            return response;
+        }
+
         public GetDriverResponse GetDrivers()
         {
             var response = new GetDriverResponse() { Drivers = new() };

@@ -35,6 +35,16 @@ namespace FL.WebAPI.Controllers
         /// <summary>
         /// Get method for Drivers
         /// </summary>
+        /// <param name="id">The identifier of the Driver</param>
+        /// <returns>Driver object</returns>
+        [HttpGet("Find/{id}")]
+        public IActionResult Find([FromRoute] int id)
+        {
+            return Ok(_management.GetDriver(id));
+        }
+        /// <summary>
+        /// Get method for Drivers
+        /// </summary>
         /// <param name="currentPage">Current page</param>
         /// <param name="elementsPerPage">Number of elements per page</param>
         /// <returns>List of all Drivers with paging</returns>

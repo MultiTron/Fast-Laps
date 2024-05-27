@@ -25,6 +25,15 @@ namespace FL.WebAPI.Controllers
             _management = management;
         }
         /// <summary>
+        /// Get method for Drivers
+        /// </summary>
+        /// <returns>List of all Drivers</returns>
+        [HttpGet("All")]
+        public IActionResult Get()
+        {
+            return Ok(_management.GetCars());
+        }
+        /// <summary>
         /// Get method for Cars
         /// </summary>
         /// <param name="id">the identifier of the Car</param>
