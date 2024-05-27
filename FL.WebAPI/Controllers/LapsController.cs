@@ -29,6 +29,15 @@ namespace FL.WebAPI.Controllers
         /// <summary>
         /// Get method for Laps
         /// </summary>
+        /// <returns>List of all Laps</returns>
+        [HttpGet("All")]
+        public IActionResult Get()
+        {
+            return Ok(_management.GetLaps());
+        }
+        /// <summary>
+        /// Get method for Laps
+        /// </summary>
         /// <param name="id">the identifier of the Lap</param>
         /// <returns>A Lap object</returns>
         [HttpGet("Find/{id}")]

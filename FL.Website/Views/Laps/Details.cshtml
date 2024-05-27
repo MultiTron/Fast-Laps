@@ -7,9 +7,16 @@
 <h1>Details</h1>
 
 <div>
-    <h4>LapViewModel</h4>
+    <h4>Lap time</h4>
     <hr />
     <dl class="row">
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DriverName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DriverName)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Sector1)
         </dt>
@@ -33,13 +40,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.LapTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DriverName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DriverName)
-        </dd>
     </dl>
 </div>
 <div>

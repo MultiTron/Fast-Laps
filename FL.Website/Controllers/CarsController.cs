@@ -34,12 +34,19 @@ namespace FL.Website.Controllers
         }
 
         // GET: CarsController
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? currentPage, int? elementsPerPage)
         {
+            if (currentPage == null && elementsPerPage == null)
+            {
+                currentPage = 1;
+                elementsPerPage = 5;
+            }
+            ViewBag.CurrentPage = currentPage;
+            ViewBag.ElementsPerPage = elementsPerPage;
             var token = await GetToken();
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token.Token);
 
-            var response = await _client.GetAsync(_client.BaseAddress + $"?currentPage={1}&elementsPerPage={5}");
+            var response = await _client.GetAsync(_client.BaseAddress + $"?currentPage={currentPage}&elementsPerPage={elementsPerPage}");
             if (!response.IsSuccessStatusCode)
             {
                 return View();
